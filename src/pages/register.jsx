@@ -1,24 +1,48 @@
+import Form from "../components/form";
+import Button from "../components/button";
+import Input from "../components/input";
 
 
 
 const Register =()=>{
     return <>
-   <div className="login-page">
-  <div className="form">
-    <form className="register-form">
-      <input type="text" placeholder="name"/>
-      <input type="password" placeholder="password"/>
-      <input type="text" placeholder="email address"/>
-      <button>create</button>
-      <p className="message">Already registered? <a href="#">Sign In</a></p>
-    </form>
-    <form className="login-form">
-      <input type="text" placeholder="username"/>
-      <input type="password" placeholder="password"/>
-      <button>login</button>
-      <p className="message">Not registered? <a href="#">Create an account</a></p>
-    </form>
-  </div>
+      <div className="register-page">
+      <div className="form">
+        <Form method="post" className="register-form">
+          <Input type="email"
+             name="email" 
+             placeholder="Ex:email@example.com" 
+             error="This field is required" 
+             status={true}
+          />
+
+          <Input type="email"
+             name="Confirm email" 
+             placeholder="Ex:email@example.com" 
+             error="This field is required" 
+             status={true}
+          />
+
+          <Input type="password" 
+                name="Password" 
+                placeholder="password"
+                error="This field is required" 
+                status={true}
+          />
+
+          <Input type="password" 
+                name="Confirm_password" 
+                placeholder="confirm your password"
+                error="This field is required" 
+                status={true}
+          />
+
+          <Button type={"submit"} 
+                  text={"Register"}
+          />
+        </Form>
+        <p className="message">Already registered? <a href="login">Sign In</a></p>
+      </div>
 </div>
     </>
 }
