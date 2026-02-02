@@ -1,8 +1,8 @@
 
-const Input =({type="text",name,placeholder ,error , status})=>{
+const Input =({type="text",change,name,placeholder ,error , status})=>{
     return <>
       <div>
-       <input type={type} name={name} placeholder={placeholder}/>
+       <input onChange={change} type={type} name={name} placeholder={placeholder}/>
        {status && <small className="text-danger">{error}</small>}
       </div>
     </>
