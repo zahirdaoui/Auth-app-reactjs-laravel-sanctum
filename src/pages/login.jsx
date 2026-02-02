@@ -24,13 +24,18 @@ const Login =()=>{
       console.log(values);
       if(!validate())return;
       try{
-        const response = await api.post("login",values.ema4);
+        const response = await api.post("login",values);
         console.log(response.data);
-      }catch(error){
-        console.error(error);
-        throw error;
+      }catch(err){
+        if(err.email) setErrors({...errors,email:err.email})
+            /* if (err.response && err.response.data) {
+              console.log("Server error message:", err.response.data.error); // <- your message
+              return err.response.data.error;
+            } else {
+              console.log("Network or other error:", err.message);
+              return err.message;
+            } */
       }
-      alert("Form valid 🎉");
 
     }
     return <>
@@ -38,7 +43,7 @@ const Login =()=>{
       
   <div className="form">
 
-    <Form submitForm={handleSubmit} url="" method="" className="login-form">
+    <Form submitForm={handleSubmit} url="" method="post" className="login-form">
       <Input type="text"
              name="email" 
              placeholder="ex:email@example.com" 
