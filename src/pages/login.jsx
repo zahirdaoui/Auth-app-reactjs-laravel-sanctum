@@ -4,9 +4,12 @@ import Button from "../components/button";
 import Form from "../components/form"
 import Input from "../components/input";
 import api from "../hooks/axios";
+import { Navigate, useNavigate } from "react-router-dom";
 const Login =()=>{
     const [values , setValues] = useState({email:"" , password:""});
     const [errors , setErrors]= useState({});
+    const [token , setToken] = useState(null);
+    const navigate = useNavigate();
     
     function validate(){
       const errs = {};
@@ -19,22 +22,18 @@ const Login =()=>{
 
     async function handleSubmit(e){
       e.preventDefault();
-      console.log("hello daoui");
       console.log(errors);
       console.log(values);
       if(!validate())return;
       try{
         const response = await api.post("login",values);
-        console.log(response.data);
+        setToken(response.data.data.token);
+        console.log(token);
+        localStorage.setItem("token", response.data.data.token);
+        navigate("profile");
+        
       }catch(err){
         if(err.email) setErrors({...errors,email:err.email})
-            /* if (err.response && err.response.data) {
-              console.log("Server error message:", err.response.data.error); // <- your message
-              return err.response.data.error;
-            } else {
-              console.log("Network or other error:", err.message);
-              return err.message;
-            } */
       }
 
     }
@@ -42,7 +41,6 @@ const Login =()=>{
     <div className="login-page">
       
   <div className="form">
-
     <Form submitForm={handleSubmit} url="" method="post" className="login-form">
       <Input type="text"
              name="email" 
