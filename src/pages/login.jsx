@@ -3,6 +3,7 @@ import { useState } from "react";
 import Button from "../components/button";
 import Form from "../components/form"
 import Input from "../components/input";
+import api from "../hooks/axios";
 const Login =()=>{
     const [values , setValues] = useState({email:"" , password:""});
     const [errors , setErrors]= useState({});
@@ -16,14 +17,20 @@ const Login =()=>{
       return Object.keys(errs).length === 0;
     }
 
-    function handleSubmit(e){
+    async function handleSubmit(e){
       e.preventDefault();
       console.log("hello daoui");
       console.log(errors);
       console.log(values);
       if(!validate())return;
+      try{
+        const response = await api.post("login",values.ema4);
+        console.log(response.data);
+      }catch(error){
+        console.error(error);
+        throw error;
+      }
       alert("Form valid 🎉");
-      console.log("hello daoui");
 
     }
     return <>
